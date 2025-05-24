@@ -1,7 +1,7 @@
 .gallery {
     display: flex;
     gap: 24px;
-    margin: 0 auto;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -13,8 +13,13 @@
     display: block;
 }
 
+.gallery-image:hover {
+    transform: scale(1.04); 
+}
+
 .gallery-image {
-    max-width: 360px;
-    max-height: 200px;
+    width: 360px;
+    height: 200px;
     display: block;
+    transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }

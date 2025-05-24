@@ -82,6 +82,7 @@ alt="${description}"
 `).join('');
 
 function galleryClick(event) {
+  event.preventDefault();
     if (event.target.nodeName !== 'IMG') {
         return;
     }
@@ -89,11 +90,20 @@ function galleryClick(event) {
     const imageSource = event.target.dataset.source;
     const image = images.find(item => item.original === imageSource)
     
-    const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(`
         <div class="modal">
         <img src="${image.original}" alt="${image.description}" />
         </div>
-        `)
+        `, {
+    onShow: () => window.addEventListener('keydown', onEsc),
+    onClose: () => window.removeEventListener('keydown', onEsc)
+  });
     
-    instance.show();
+  instance.show();
+  
+  function onEsc(event) {
+    if (event.key === 'Escape') {
+      instance.close();
+    }
+  }
 }
